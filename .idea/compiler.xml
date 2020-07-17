@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Jeedle-Agent" target="1.5" />
-      <module name="Jeedle-Dropper" target="1.5" />
+      <module name="Jeedle-Dropper" target="7" />
     </bytecodeTargetLevel>
   </component>
 </project>
