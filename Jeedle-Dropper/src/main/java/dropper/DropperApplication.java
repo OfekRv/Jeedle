@@ -6,10 +6,10 @@ import utils.HttpUtil;
 
 public class DropperApplication {
 	public static void main(String args[]) {
-		try {
+		/*try {
 			HttpUtil.sendGET("http://" + args[0] + "/submit");
 		} catch (IOException e) {
-		}
+		}*/
 
 		try {
 			Thread.sleep(Long.MAX_VALUE);

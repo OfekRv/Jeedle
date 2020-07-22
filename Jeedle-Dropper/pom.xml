@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>Jeedle</groupId>
     <artifactId>Jeedle-Dropper</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1</version>
     <build>
         <plugins>
@@ -18,4 +19,7 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>Jeedle-C2</module>
+    </modules>
 </project>
