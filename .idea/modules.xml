@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Jeedle-Agent/Jeedle-Agent.iml" filepath="$PROJECT_DIR$/Jeedle-Agent/Jeedle-Agent.iml" />
       <module fileurl="file://$PROJECT_DIR$/Jeedle-Dropper/Jeedle-Dropper.iml" filepath="$PROJECT_DIR$/Jeedle-Dropper/Jeedle-Dropper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Jeedle-C2/Jeedle-C2.iml" filepath="$PROJECT_DIR$/Jeedle-C2/Jeedle-C2.iml" />
     </modules>
   </component>
 </project>
