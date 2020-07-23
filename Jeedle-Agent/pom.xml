@@ -6,4 +6,16 @@
     <groupId>Jeedle</groupId>
     <artifactId>Jeedle-Agent</artifactId>
     <version>0.0.1</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <outputDirectory>/../Jeedle-C2/src/main/resources/Beacons</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
