@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/Jeedle-Dropper/pom.xml" />
         <option value="$PROJECT_DIR$/Jeedle-Agent/pom.xml" />
+        <option value="$PROJECT_DIR$/Jeedle-C2/pom.xml" />
       </list>
     </option>
   </component>
