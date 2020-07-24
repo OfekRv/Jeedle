@@ -1,4 +1,4 @@
-package utils;
+package dropper.utils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -22,6 +22,15 @@ public class HttpUtil {
         return response.toString();
     }
 
+    public static void sendPOST(String url, String body) throws IOException {
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+        con.setDoOutput(true);
+        con.getOutputStream().write(body.getBytes());
+        int x = con.getResponseCode();
+    }
 
     public static void downloadFileHttp(String url, String destPath) throws IOException {
         try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());

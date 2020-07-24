@@ -1,19 +1,24 @@
 package dropper;
 
-import java.io.IOException;
+import com.google.gson.Gson;
+import dropper.entities.Agent;
+import dropper.services.DropperBackgroundService;
 
-import utils.HttpUtil;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.time.LocalDateTime;
+
+import static dropper.utils.HttpUtil.sendPOST;
 
 public class DropperApplication {
-	public static void main(String args[]) {
-		/*try {
-			HttpUtil.sendGET("http://" + args[0] + "/submit");
-		} catch (IOException e) {
-		}*/
+    private final static Gson gson = new Gson();
 
-		try {
-			Thread.sleep(Long.MAX_VALUE);
-		} catch (InterruptedException e) {
-		}
-	}
+    public static void main(String args[]) {
+        try {
+            Agent agent = new Agent("1", InetAddress.getLocalHost().toString(), 0);
+            sendPOST("http://" + args[0] + "/register", gson.toJson(agent));
+            new DropperBackgroundService().listen(args[0], agent);
+        } catch (IOException e) {
+        }
+    }
 }

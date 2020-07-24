@@ -13,7 +13,7 @@ public class MissionController {
     @Inject
     private MissionBl bl;
 
-    @GetMapping
+    @GetMapping("nextMission")
     public Mission nextMission(@RequestParam Long agentId) {
         return bl.nextAgentMission(agentId);
     }
