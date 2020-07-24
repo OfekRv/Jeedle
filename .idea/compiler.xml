@@ -12,7 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Jeedle-Agent" target="1.5" />
+      <module name="Jeedle-Agent" target="7" />
       <module name="Jeedle-C2" target="1.8" />
       <module name="Jeedle-Dropper" target="7" />
     </bytecodeTargetLevel>

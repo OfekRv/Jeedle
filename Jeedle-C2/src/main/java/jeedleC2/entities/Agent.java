@@ -20,6 +20,8 @@ public class Agent {
     private String id;
     @Column(nullable = false, unique = false)
     private String ip;
+    @Enumerated(EnumType.STRING)
+    private AgentType type;
     @Column(nullable = true, unique = false)
     private LocalDateTime lastActive;
 }
