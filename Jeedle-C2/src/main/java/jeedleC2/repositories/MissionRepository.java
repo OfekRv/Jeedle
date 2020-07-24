@@ -8,5 +8,5 @@ import java.util.Collection;
 
 @Repository
 public interface MissionRepository extends JpaRepository<Mission, Long> {
-    public Collection<Mission> findByAgentId(Long agentId);
+    public Collection<Mission> findByAgentId(String agentId);
 }

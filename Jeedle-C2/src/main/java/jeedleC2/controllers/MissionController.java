@@ -14,7 +14,7 @@ public class MissionController {
     private MissionBl bl;
 
     @GetMapping("nextMission")
-    public Mission nextMission(@RequestParam Long agentId) {
+    public Mission nextMission(@RequestParam String agentId) {
         return bl.nextAgentMission(agentId);
     }
 }

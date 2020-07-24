@@ -2,10 +2,10 @@ package dropper.entities;
 
 public class Mission {
     private Long id;
-    private int type;
+    private MissionType type;
     private String[] agrs;
 
-    public Mission(Long id, int type, String[] agrs) {
+    public Mission(Long id, MissionType type, String[] agrs) {
         this.id = id;
         this.type = type;
         this.agrs = agrs;
@@ -22,11 +22,11 @@ public class Mission {
         this.id = id;
     }
 
-    public int getType() {
+    public MissionType getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(MissionType type) {
         this.type = type;
     }
 

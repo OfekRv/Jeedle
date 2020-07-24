@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,7 +32,10 @@ public class Mission {
     @Column(nullable = true, unique = false)
     private Collection<String> agrs;
     @Column(nullable = true, unique = false)
+    @CreationTimestamp
     private LocalDateTime creationTime;
+    @Column(nullable = false, unique = false)
+    private Boolean isSent;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "artifact_id")
     private Collection<Artifact> artifacts;
