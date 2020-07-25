@@ -35,6 +35,7 @@
                             <Agent-Class>jeedle.JeedleApplication</Agent-Class>
                             <Can-Redefine-Classes>true</Can-Redefine-Classes>
                             <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                            <Built-By>Jeedle</Built-By>
                         </manifestEntries>
                     </archive>
                 </configuration>

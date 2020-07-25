@@ -21,11 +21,21 @@ public class BeaconController {
 
     @GetMapping("downloadBeacon")
     public ResponseEntity<Resource> downloadBeacon() throws IOException {
-        Resource fileResource = resourceLoader.getResource("classpath:Beacons/Jeedle.jar");
+        return fileResponse("Jeedle.jar");
+    }
+
+    @GetMapping("downloadDropper")
+    public ResponseEntity<Resource> downloadDropper() throws IOException {
+        return fileResponse("Jeedle-Dropper.jar");
+    }
+
+    public ResponseEntity<Resource> fileResponse(String fileName) throws IOException {
+        Resource fileResource = resourceLoader.getResource("classpath:Beacons/" + fileName);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"Beacon\"")
                 .contentLength(fileResource.contentLength()).contentType(MediaType.parseMediaType(APPLICATION_OCTET_STREAM))
                 .body(new InputStreamResource(fileResource.getInputStream()));
+
     }
 }
