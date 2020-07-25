@@ -1,4 +1,4 @@
-package jeedleC2.entities;
+package jeedle.entities;
 
 public enum MissionType {
     SHOW_JVMS,

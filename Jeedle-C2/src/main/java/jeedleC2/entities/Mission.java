@@ -30,12 +30,12 @@ public class Mission {
     private MissionType type;
     @ElementCollection
     @Column(nullable = true, unique = false)
-    private Collection<String> agrs;
+    private Collection<String> args;
     @Column(nullable = true, unique = false)
     @CreationTimestamp
     private LocalDateTime creationTime;
     @Column(nullable = false, unique = false)
-    private Boolean isSent;
+    private Boolean isSent = false;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "artifact_id")
     private Collection<Artifact> artifacts;

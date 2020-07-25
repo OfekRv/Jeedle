@@ -1,4 +1,4 @@
-package dropper.entities;
+package jeedle.entities;
 
 public class Mission {
     private Long id;

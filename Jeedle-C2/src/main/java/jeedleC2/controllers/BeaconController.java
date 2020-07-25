@@ -21,7 +21,7 @@ public class BeaconController {
 
     @GetMapping("downloadBeacon")
     public ResponseEntity<Resource> downloadBeacon() throws IOException {
-        Resource fileResource = resourceLoader.getResource("classpath:Beacons/Agent.jar");
+        Resource fileResource = resourceLoader.getResource("classpath:Beacons/Jeedle.jar");
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"Beacon\"")

@@ -16,7 +16,10 @@ public class MissionBl {
 
     @Transactional
     public Mission nextAgentMission(String agentId) {
-        Optional<Mission> nextAgentMission = repository.findByAgentId(agentId).stream().sorted(Comparator.comparing(Mission::getCreationTime)).findFirst();
+        Optional<Mission> nextAgentMission = repository.findByAgentId(agentId).stream()
+                .filter(mission -> !mission.getIsSent())
+                .sorted(Comparator.comparing(Mission::getCreationTime))
+                .findFirst();
         if (nextAgentMission.isPresent()) {
             nextAgentMission.get().setIsSent(true);
             return nextAgentMission.get();
