@@ -6,6 +6,7 @@ import dropper.services.DropperBackgroundService;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.UUID;
 
 import static dropper.utils.HttpUtil.sendPOST;
 
@@ -14,7 +15,10 @@ public class DropperApplication {
 
     public static void main(String args[]) {
         try {
-            Agent agent = new Agent("1", InetAddress.getLocalHost().toString(), 0);
+            UUID uid = UUID.randomUUID();
+            Agent agent = new Agent(uid.toString(),
+                    InetAddress.getLocalHost().getHostAddress().toString(),
+                    0);
             sendPOST(args[0] + "/register", gson.toJson(agent));
             new DropperBackgroundService().listen(args[0], agent);
         } catch (IOException e) {

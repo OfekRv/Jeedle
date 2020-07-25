@@ -7,6 +7,7 @@ import jeedle.services.AgentBackgroundService;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.net.InetAddress;
+import java.util.UUID;
 
 import static jeedle.utils.HttpUtil.sendPOST;
 
@@ -15,9 +16,12 @@ public class JeedleApplication {
 
     public static void agentmain(String agentArgs, Instrumentation inst) {
         try {
-            Agent agent = new Agent("2", InetAddress.getLocalHost().toString(), 1);
-            sendPOST("http://localhost:8081/register", gson.toJson(agent));
-            new AgentBackgroundService().listen("http://localhost:8081", agent);
+            UUID uid = UUID.randomUUID();
+            Agent agent = new Agent(uid.toString(),
+                    InetAddress.getLocalHost().getHostAddress().toString(),
+                    1);
+            sendPOST(agentArgs + "/register", gson.toJson(agent));
+            new AgentBackgroundService().listen(agentArgs, agent);
         } catch (IOException e) {
         }
     }

