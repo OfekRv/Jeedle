@@ -15,10 +15,7 @@
         <dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
-            <scope>system</scope>
             <version>1.6.0</version>
-            <type>jar</type>
-            <systemPath>${project.basedir}\libs\tools.jar</systemPath>
         </dependency>
     </dependencies>
     <build>
