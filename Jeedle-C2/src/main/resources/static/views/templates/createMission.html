@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">Create your mission:</h4>
+</div>
+<div class="modal-body">
+    <tr>
+        <td>
+            Type: <input type="text" id="missionType" name="missionType" ng-model="missionType">
+        </td>
+    </tr>
+    </br>
+    <tr>
+        <td>
+            Args: <input type="text" id="arg" name="arg"
+                         ng-model="arg">
+        </td>
+        <td>
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag
+               ng-click="addArg()">
+                <span class="glyphicon glyphicon-plus">
+            </span>
+            </a>
+        </td>
+    </tr>
+    <tr ng-repeat="argument in missionArgs">
+        <td>{{argument}}</td>
+        <td><a class="pull-right btn btn-danger btn-xs" data-nodrag
+               ng-click="removeArg(argument)"><span
+                class="glyphicon glyphicon-remove"></span></a>
+        </td>
+    </tr>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="create()">Send</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>

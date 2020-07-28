@@ -15,7 +15,7 @@
 									var model = scope.$modelValue;
 									$http({
 										method : 'DELETE',
-										url : 'operators/' + model.ip
+										url : 'api/agents/' + model.id
 									})
 											.then(
 													function successCallback(
@@ -33,169 +33,46 @@
 									$scope.data.splice(0, 0, a);
 								};
 
-								$scope.injectAgent = function(scope) {
+								$scope.createMission = function(scope) {
 									var nodeData = scope.$modelValue;
-									$scope.selectedJar;
+									$scope.arg;
+									$scope.missionArgs = [];
 								    $modal.open({
-								        templateUrl: 'views/templates/injectAgent.html',
+								        templateUrl: 'views/templates/createMission.html',
 								        backdrop: true,
 								        windowClass: 'modal',
 								        controller: function($scope, $modalInstance) {
-											$http({
-												method : 'POST',
-												url : 'whatsUp',
-												data: nodeData.ip
-											})
-													.then(
-															function successCallback(
-																	response) {
-																$scope.jars = [];
-																angular
-																		.forEach(
-																				response.data,
-																				function(
-																						jarName) {
-																					$scope.jars.push(jarName);
-																				});
-															});
-											
-								          $scope.inject = function() {
+								          $scope.create = function() {
 								        		$http({
 													method : 'POST',
-													url : 'injectAgent',
-													data: {ip:nodeData.ip,jarName:$scope.selectedJar}
+													url : 'api/missions',
+													data: {
+													        agent:nodeData.url,
+													        type:$scope.missionType,
+													        args:$scope.missionArgs
+													      }
 												})
-														.then(
-																function successCallback(
-																		response) {
-																	if(response.data)
-																	{
-																		nodeData.nodes.push({
-																		ip : nodeData.ip,
-																		title : $scope.selectedJar,
-																		mainClass : $scope.selectedJar,
-																		isAlive : true,
-																		nodrop : true
-																		});
-																		
-																	}
-																	else
-																	{
-																		Swal.fire(
-																				  'Injection failed :(',
-																				  'Probably lost connection with operator, or there is already instance of this agent, or agent cant be deployed here...',
-																				  'error'
-																				)
-																	}
-																});
+														.then(function successCallback(response) {});
 								        	
-								            $modalInstance.dismiss('inject');
+								            $modalInstance.dismiss('create');
 								          }
-								          $scope.cancel = function() {
-								            $modalInstance.dismiss('cancel');
-								          };
-								        },
-								        resolve: {
-								          user: function() {
-								            return $scope.selected;
-								          }
-								        }
-								      });
-								};
-								
-								$scope.injectCode = function(scope) {
-									$scope.classes = [];
-						        	$scope.localVariables = [];
-						        	$scope.variableName = "";
-						        	$scope.variableType = "";
-						        	$scope.fields = [];
-									var nodeData = scope.$modelValue;
-									$scope.selectedAgent;
-								    $modal.open({
-								        templateUrl: 'views/templates/injectCode.html',
-								        backdrop: true,
-								        windowClass: 'modal',
-								        controller: function($scope, $modalInstance) {
-											$http({
-												method : 'POST',
-												url : 'classes',
-												data: nodeData.ip
-											})
-													.then(
-															function successCallback(
-																	response) {
-																$scope.classes = [];
-																angular
-																		.forEach(
-																				response.data,
-																				function(
-																						className) {
-																					$scope.classes.push(className);
-																				});
-																$scope.classes.sort();
-																$scope.updateClass = function() {
-																	$http({
-																		method : 'POST',
-																		url : 'classDetails',
-																		data: {ip:nodeData.ip,className:$scope.selectedClass}
-																	})
-																			.then(
-																					function successCallback(
-																							response) {
-																						$scope.fields = response.data.fields;
-																						$scope.methods = response.data.methods;
-																						$scope.methods.sort();
-																					});
-																	}
-															});
-											
-										      $scope.addVariable = function() {
-										    	  if ($scope.localVariables == null)
-									    		  {
-										    		  $scope.localVariables = [];
-									    		  }
-										    	  $scope.localVariables.push({name:$scope.variableName,type:$scope.variableType});
-										    	  $scope.variableName="";
-										    	  $scope.variableType="";
-									          }
-										      
-										      $scope.removeVariable = function(variable)
-										      {
-										    	  const index = $scope.localVariables.indexOf(variable);
-										    	  if (index > -1) {
-										    		  $scope.localVariables.splice(index, 1);
-										    	  }
-										      };
-												
-										      $scope.inject = function() {
-													$http({
-														method : 'POST',
-														url : 'injectCode',
-														data: {ip:nodeData.ip,injection:{targetClass:$scope.selectedClass,targetMethod:$scope.selectedMethod,localVariables:$scope.localVariables,code:$scope.code}}
-													})
-															.then(
-																	function successCallback(
-																			response) {
-																		if (response)
-																		{
-																			Swal.fire(
-																					  'Code injected',
-																					  'Let the fun begin..',
-																					  'success'
-																					)
-																		}
-																	else
-																		{
-																		Swal.fire(
-																				  'Injection failed :(',
-																				  'you probably did something stupid..',
-																				  'error'
-																				)
-																		}
-																	});
-									        	
-									            $modalInstance.dismiss('inject');
-									          }
+								          $scope.addArg = function() {
+                                          if ($scope.missionArgs == null)
+                                          {
+                                              $scope.missionArgs = [];
+                                          }
+                                          $scope.missionArgs.push($scope.arg);
+                                          $scope.arg="";
+                                      }
+
+                                        $scope.removeArg = function(variable)
+                                        {
+                                            const index = $scope.missionArgs.indexOf(variable);
+                                            if (index > -1) {
+                                                $scope.missionArgs.splice(index, 1);
+                                            }
+                                        };
+
 								          $scope.cancel = function() {
 								            $modalInstance.dismiss('cancel');
 								          };
@@ -208,30 +85,44 @@
 								      });
 								};
 
-								setInterval(function(){ 
+								setInterval(function(){
 								$http({
 									method : 'GET',
-									url : 'agentOutputs'
+									url : 'api/missions?sort=creationTime,desc'
 								})
 										.then(
 												function successCallback(
 														response) {
-													$scope.outputs = [];
+													$scope.missions = [];
 													angular
 															.forEach(
-																	response.data._embedded.agentOutputs,
+																	response.data._embedded.missions,
 																	function(
-																			output) {
-																		$scope.outputs.push(output.timestamp + " " + output.ip + ": " + output.content);
+																			mission) {
+																		var artifactContent;
+																		if (mission.artifact != null)
+																		{
+																		    artifactContent = mission.artifact.content;
+																		}
+																		$scope.missions.push(
+                                                                            {
+                                                                                agentIp : mission.agent.ip,
+                                                                                agentType : mission.agent.type,
+                                                                                missionType : mission.type,
+                                                                                missionArgs : mission.args,
+                                                                                missionCreationTime : mission.creationTime,
+                                                                                content : artifactContent
+                                                                            }
+																		);
 																	});
 												});
-								 }, 3000); 
+								 }, 3000);
 								setInterval(function(){ 
 									if ($scope.data == null || $scope.data.length == 0)
 										{
 								$http({
 									method : 'GET',
-									url : 'operators'
+									url : 'api/agents'
 								})
 										.then(
 												function successCallback(
@@ -239,65 +130,24 @@
 													$scope.data = [];
 													angular
 															.forEach(
-																	response.data._embedded.operators,
+																	response.data._embedded.agents,
 																	function(
-																			operator) {
-																		if (operator.alive)
-																			{
+																			agent) {
 																		$scope.data
 																				.push({
-																					ip : operator.ip,
-																					url: operator._links.self.href,
-																					title : operator.ip,
-																					isAlive : operator.alive,
+																					ip : agent.ip,
+																					url: agent._links.self.href,
+																					type: agent.type,
+																					id : agent.id,
+																					lastActive : agent.lastActive,
 																					nodes : []
 																				});
-																			}
 																	});
-
-													$http({
-														method : 'GET',
-														url : 'agents'
-													})
-															.then(
-																	function successCallback(
-																			response) {
-																		angular
-																				.forEach(
-																						response.data._embedded.agents,
-																						function(
-																								agent) {
-																							var index = $scope.data.findIndex(operator => operator.ip == agent.ip);
-																							if (index != -1)
-																								{
-																									$scope.data[index].nodes.push({
-																										ip : agent.ip,
-																										url: agent._links.self.href,
-																										title :  agent.mainClass,
-																										mainClass : agent.mainClass,
-																										// isCurrent
-																										// :
-																										// agent.current,
-																										nodrop : true
-																									});
-																								}
-																							else
-																								{
-																									$scope.data.nodes.push({
-																										ip : agent.ip,
-																										url: agent._links.self.href,
-																										title :  agent.mainClass,
-																										mainClass : agent.mainClass,
-																										// isCurrent
-																										// :
-																										// agent.current,
-																										nodrop : true
-																								});
-																								}
-																						});
-																	});
-
+																	if ($scope.selectedAgent == null && $scope.data.length != 0)
+																	{
+																	    $scope.selectedAgent = $scope.data[0];
+																	}
 												});}
-								}, 3000); 
+								}, 3000);
 							} ]);
 }());

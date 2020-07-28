@@ -19,12 +19,12 @@ public class Artifact {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jdl_artifacts_seq")
     @JoinColumn(name = "artifact_id")
     private Long id;
-    @Column(columnDefinition = "TEXT",nullable = true, unique = false)
+    @Column(columnDefinition = "TEXT", nullable = true, unique = false)
     private String content;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = true)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "mission_id")
     private Mission creatingMission;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "agent_id")
     private Agent creatingAgent;
 

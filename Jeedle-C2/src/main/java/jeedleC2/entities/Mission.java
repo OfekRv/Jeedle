@@ -36,7 +36,7 @@ public class Mission {
     private LocalDateTime creationTime;
     @Column(nullable = false, unique = false)
     private Boolean isSent = false;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "artifact_id")
-    private Collection<Artifact> artifacts;
+    private Artifact artifact;
 }

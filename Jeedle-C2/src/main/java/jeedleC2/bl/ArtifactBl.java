@@ -2,6 +2,7 @@ package jeedleC2.bl;
 
 import jeedleC2.contracts.ArtifactContract;
 import jeedleC2.entities.Artifact;
+import jeedleC2.entities.Mission;
 import jeedleC2.repositories.AgentRepository;
 import jeedleC2.repositories.ArtifactRepository;
 import jeedleC2.repositories.MissionRepository;
@@ -20,7 +21,10 @@ public class ArtifactBl {
 
     public void saveArtifact(ArtifactContract rawArtifact) {
         Artifact artifact = new Artifact(rawArtifact.getContent(), agentRepository.findById(rawArtifact.getCreatingAgentId()).get());
-        artifact.setCreatingMission(missionRepository.findById(rawArtifact.getCreatingMissionId()).get());
+        Mission creatingMission = missionRepository.findById(rawArtifact.getCreatingMissionId()).get();
+        artifact.setCreatingMission(creatingMission);
+        creatingMission.setArtifact(artifact);
         repository.save(artifact);
+        missionRepository.save(creatingMission);
     }
 }

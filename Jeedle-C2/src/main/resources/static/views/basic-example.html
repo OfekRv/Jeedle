@@ -1,44 +1,62 @@
 <!-- Nested node template -->
 <script type="text/ng-template" id="nodes_renderer.html">
-  <div ui-tree-handle class="tree-node tree-node-content">
-    <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
-        class="glyphicon"
-        ng-class="{
+    <div ui-tree-handle class="tree-node tree-node-content">
+        <a class="btn btn-success btn-xs text-white" ng-if="node.nodes && node.nodes.length > 0" data-nodrag
+           ng-click="toggle(this)"><span
+                class="glyphicon"
+                ng-class="{
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>
-    {{node.title}}
-    <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeOperator(this)"><span
-        class="glyphicon glyphicon-remove"></span></a>
-    <a class="pull-right btn btn-primary btn-xs" ng-if="node.nodes" data-nodrag ng-click="injectAgent(this)" style="margin-right: 8px;">Inject agent</a>
-	<a class="pull-right btn btn-primary btn-xs" ng-if="node.mainClass" data-nodrag ng-click="injectCode(this)" style="margin-right: 8px;">Inject code</a>
-  </div>
-  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
-    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
-    </li>
-  </ol>
+        <button class="btn-info btn-xs disables text-white">{{node.type}}</button>
+        {{node.ip}}
+        <a class="pull-right btn btn-danger btn-xs text-white" data-nodrag ng-click="removeOperator(this)"><span
+                class="glyphicon glyphicon-remove"></span></a>
+        <a class="pull-right btn btn-primary btn-xs text-white" ng-if="node.nodes" data-nodrag
+           ng-click="createMission(this)"
+           style="margin-right: 8px;">Mission</a>
+        <a class="pull-right btn btn-primary btn-xs text-white" ng-if="node.mainClass" data-nodrag
+           ng-click="injectCode(this)"
+           style="margin-right: 8px;">Inject code</a>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ol>
 </script>
 
 <div class="row">
-	<div class="col-sm-6">
-		<h3>Agents</h3>
-	</div>
-	<div class="col-sm-6">
-		<h3>Console</h3>
-	</div>
+    <div class="col-sm-6">
+        <h3>Agents</h3>
+    </div>
+    <div class="col-sm-6">
+        <h3>Console</h3>
+    </div>
 </div>
 
 <div class="row">
-	<div class="col-sm-6">
-		<div ui-tree id="tree-root">
-			<ol ui-tree-nodes ng-model="data">
-				<li ng-repeat="node in data" ui-tree-node
-					ng-include="'nodes_renderer.html'"></li>
-			</ol>
-		</div>
-	</div>
+    <div class="col-sm-6">
+        <div ui-tree id="tree-root">
+            <ol ui-tree-nodes ng-model="data">
+                <li ng-repeat="node in data" ui-tree-node
+                    ng-include="'nodes_renderer.html'"></li>
+            </ol>
+        </div>
+    </div>
 
-	<div class="col-sm-6">
-		<pre class="code">{{ outputs | json }}</pre>
-	</div>
+    <div class="col-sm-6 container bg-dark rounded  ">
+        <div class="mission" ng-repeat="mission in missions">
+            <div class="request">
+                {{mission.agentIp}} {{mission.agentType}} {{mission.missionType}} {{mission.missionCreationTime}}
+                </br>
+                <div class="args">
+                    {{mission.missionArgs.join(' ')}}
+                </div>
+                </br>
+            </div>
+            <div class="response">
+                {{mission.content}}
+            </div>
+        </div>
+    </div>
 </div>
