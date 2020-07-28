@@ -1,5 +1,0 @@
-{
-  "scripts": {
-    "publishToHeroku": "cd ../ && git subtree push --prefix Jeedle-C2 jeedle master || true"
-  }
-}
