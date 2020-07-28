@@ -8,18 +8,18 @@ public class CmdExecutor implements Executor<String> {
     @Override
     public String execute(String[] args) {
         StringBuilder output = new StringBuilder();
-
+        String currLine;
         try {
             Process process = Runtime.getRuntime().exec("cmd.exe /C " + args[0]);
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                while (reader.ready()) {
-                    output.append(reader.readLine());
+                while ((currLine = reader.readLine()) != null) {
+                    output.append("\n" + currLine);
                 }
             }
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                while (reader.ready()) {
-                    output.append(reader.readLine());
+                while ((currLine = reader.readLine()) != null) {
+                    output.append("\n" + currLine);
                 }
             }
             process.waitFor();
