@@ -1,0 +1,63 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="myModalLabel">Inject code</h4>
+</div>
+<div class="modal-body">
+	<table>
+		<tr>
+			<td>Class: <select ng-model="selectedClass"
+				ng-options="class for class in classes" ng-change="updateClass()"
+				style="width: 100px;">
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Methods: <select ng-model="selectedMethod"
+				ng-options="method for method in methods" style="width: 100px;"></select></td>
+		</tr>
+		<tr>
+			<td>Fields:
+				<table style="width: 100%" class="highlight" border-spacing="5px">
+					<tr>
+						<td>Name</td>
+						<td>Type</td>
+					</tr>
+					<tr ng-repeat="field in fields">
+						<td>{{ field.name }}</td>
+						<td>{{ field.type }}</td>
+					</tr>
+					<tr ng-repeat="variable in localVariables">
+						<td>{{ variable.name }}</td>
+						<td>{{ variable.type }}</td>
+						<td><a class="pull-right btn btn-danger btn-xs" data-nodrag
+							ng-click="removeVariable(variable)"><span
+								class="glyphicon glyphicon-remove"></span></a></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="variableName" name="variableName"
+							ng-model="variableName"></td>
+						<td><input type="text" id="variableType" name="variableType"
+							ng-model="variableType"></td>
+						<td><a class="pull-right btn btn-primary btn-xs" data-nodrag
+							ng-click="addVariable()"><span
+								class="glyphicon glyphicon-plus"></span></a></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td><table>
+					<tr>
+						<td>Code:</td>
+					</tr>
+					<tr>
+						<td><textarea name="code" ng-model="code" rows="10" cols="75"></textarea>
+						</td>
+					</tr>
+				</table></td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="inject()">Inject</button>
+	<button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>

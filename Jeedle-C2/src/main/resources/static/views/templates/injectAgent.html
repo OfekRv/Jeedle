@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="myModalLabel">Choose main class:</h4>
+</div>
+<div class="modal-body">
+	<select ng-model="selectedJar" ng-options="jar for jar in jars"
+		style="width: 100px;">
+	</select>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="inject()">Inject</button>
+	<button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>
