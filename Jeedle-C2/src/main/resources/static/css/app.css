@@ -1,9 +1,21 @@
-.th, td {
-	padding: 15px;
+.request {
+  color: Cyan;
 }
 
-.table, th, td {
-	border: 1px solid black;
+.args {
+  color: turquoise;
+}
+
+.response {
+  color: white;
+}
+
+.mission {
+    border-bottom: 0.5px solid #ccc;
+}
+
+.th, td {
+	padding: 5px;
 }
 
 .tr:hover {
