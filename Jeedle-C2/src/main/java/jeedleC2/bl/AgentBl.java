@@ -12,8 +12,9 @@ public class AgentBl {
     @Inject
     private AgentRepository repository;
 
-    public void registerAgent(Agent agent) {
+    public void registerAgent(Agent agent, String ip) {
         agent.setLastActive(LocalDateTime.now());
+        agent.setIp(ip);
         repository.save(agent);
     }
 }

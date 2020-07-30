@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class AgentController {
@@ -14,7 +15,7 @@ public class AgentController {
     private AgentBl bl;
 
     @PostMapping("/register")
-    public void registerAgent(@RequestBody Agent agent) {
-        bl.registerAgent(agent);
+    public void registerAgent(@RequestBody Agent agent, HttpServletRequest request) {
+        bl.registerAgent(agent, request.getRemoteAddr());
     }
 }
