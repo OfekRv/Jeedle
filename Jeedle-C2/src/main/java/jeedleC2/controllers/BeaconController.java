@@ -29,6 +29,11 @@ public class BeaconController {
         return fileResponse("Jeedle-Dropper.jar");
     }
 
+    @GetMapping("downloadResource")
+    public ResponseEntity<Resource> downloadResource() throws IOException {
+        return fileResponse("tools.jar");
+    }
+
     public ResponseEntity<Resource> fileResponse(String fileName) throws IOException {
         Resource fileResource = resourceLoader.getResource("classpath:Beacons/" + fileName);
         return ResponseEntity.ok()
